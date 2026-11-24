@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Identity;
+using KodaStore.Application.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -188,7 +189,20 @@ builder.Services
 
 
 // *Authorization
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(AppPolicies.CanManageCategory, policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole(AppRoles.Admin);
+    });
+
+    options.AddPolicy(AppPolicies.CanManageProduct, policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole(AppRoles.Admin);
+    });
+});
 
 
 var app = builder.Build();

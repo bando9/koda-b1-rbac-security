@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+// import UseAuth from "../hooks/use-auth";
+import { RoleNavigation } from "../components/navigation/role-navigation";
 import UseAuth from "../hooks/use-auth";
 
 const getErr = (err, fallback) =>
@@ -60,6 +62,8 @@ export default function DashboardPage() {
       },
       "Gagal memperbarui Access Token.",
     );
+
+  <RoleNavigation />;
 
   const handleLogout = () =>
     run("logout", logout, "Logout gagal. Silakan coba kembali.");

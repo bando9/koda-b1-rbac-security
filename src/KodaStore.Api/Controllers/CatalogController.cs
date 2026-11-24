@@ -7,6 +7,7 @@
 // namespace KodaStore.Api.Controllers;
 
 // [Route("catalog")]
+// [Authorize(Roles = AppRoles.Admin)]
 // public sealed class CatalogController : Controller
 // {
 //     private readonly IProductService _service;

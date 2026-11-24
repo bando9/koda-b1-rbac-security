@@ -1,6 +1,8 @@
 
 using KodaStore.Application.DTOs;
+using KodaStore.Application.Security;
 using KodaStore.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
@@ -8,12 +10,13 @@ namespace KodaStore.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/categories")]
+[Authorize(Policy = AppPolicies.CanManageCategory)]
 
 public sealed class CategoryController(ICategoryService service) : ControllerBase
 {
     private readonly ICategoryService _service = service;
 
-    [HttpGet("{categoryId:int}/products")]
+    [HttpGet("{categoryId:int}/products"), AllowAnonymous]
     public async Task<ActionResult<CategoryProductsResponse>> GetProducts(int categoryId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10, CancellationToken ct = default)
     {
         if (categoryId <= 0 || page < 1 || pageSize is < 1 or > 50)

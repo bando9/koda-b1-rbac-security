@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from "react-router";
 import LoginPage from "./pages/login-page";
 import ProtectedRoute from "./auth/protected-route";
 import DashboardPage from "./pages/dashboard-page";
+import { AdminRoute } from "./auth/admin-route";
+import { AdminCategoryPage } from "./pages/admin-category-page";
 
 function App() {
   return (
@@ -15,8 +17,20 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/admin/category"
+        element={
+          <ProtectedRoute>
+            <AdminRoute>
+              <AdminCategoryPage />
+            </AdminRoute>
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="*" element={<Navigate to="/dashboard" />} replace />
-    </Routes> // <div className="pt-50">
+    </Routes>
   );
 }
 

@@ -37,7 +37,8 @@ public sealed class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>
         });
 
 
-         modelBuilder.Entity<RefreshToken>(entity =>
+        // *Refresh Token
+        modelBuilder.Entity<RefreshToken>(entity =>
         {
             entity.ToTable("RefreshTokens", "dbo");
 
@@ -66,9 +67,7 @@ public sealed class AppDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>
             entity.Property(token => token.UsedAtUtc)
                     .HasColumnType("datetimeoffset");     
             entity.Property(token => token.RevokedAtUtc)
-                    .HasColumnType("datetimeoffset");     
-
-
+                    .HasColumnType("datetimeoffset");
         });
 
 
